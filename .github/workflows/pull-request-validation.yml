@@ -1,0 +1,34 @@
+name: Pull request validation
+run-name: Validate pull request to ${{ github.base_ref }} branch
+
+on:
+  pull_request:
+    types:
+      - edited
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  lint-pull-request-title:
+    name: Lint
+    uses: ./.github/workflows/pull-request-title-linting.yml
+    with:
+      pr_title: ${{ github.event.pull_request.title }}
+
+  lint-commit-messages:
+    name: Lint
+    uses: ./.github/workflows/commit-messages-linting.yml
+    with:
+      from: ${{ github.event.pull_request.base.sha }}
+      to: ${{ github.event.pull_request.head.sha }}
+
+  lint-changed-files:
+    name: Lint
+    needs:
+      - lint-pull-request-title
+      - lint-commit-messages
+    uses: ./.github/workflows/changed-files-linting.yml
+    with:
+      ls_command: git diff --diff-filter=ACMUX --name-only ${{ github.event.pull_request.base.sha }}
+      ref: ${{ github.event.pull_request.head.sha }}

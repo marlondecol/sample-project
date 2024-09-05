@@ -1,0 +1,34 @@
+name: Commit messages linting
+
+on:
+  workflow_call:
+    inputs:
+      from:
+        type: string
+        required: false
+        description: Lower end of the commit range to lint.
+      to:
+        type: string
+        required: true
+        description: Upper end of the commit range to lint.
+
+jobs:
+  lint-commit-messages:
+    name: Commit messages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.to }}
+      - name: Setup a Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install commitlint configuration from npm
+        run: npm install --global @commitlint/config-conventional
+      - name: Lint commit messages with commitlint
+        run: |
+          echo "::notice title=Last commit message::$(git show -s --format=%s)"
+          npx commitlint${{ inputs.from && format(' --from {0}', inputs.from) }} --to ${{ inputs.to }}

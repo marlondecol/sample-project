@@ -1,0 +1,22 @@
+name: Integration validation
+run-name: Validate integration to ${{ github.ref_name }} branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint-commit-messages:
+    name: Lint
+    uses: ./.github/workflows/commit-messages-linting.yml
+    with:
+      to: ${{ github.sha }}
+
+  lint-changed-files:
+    name: Lint
+    needs: lint-commit-messages
+    uses: ./.github/workflows/changed-files-linting.yml
+    with:
+      ls_command: git log -1 --diff-filter=ACMUX --first-parent --name-only --pretty="format:"
+      ref: ${{ github.sha }}

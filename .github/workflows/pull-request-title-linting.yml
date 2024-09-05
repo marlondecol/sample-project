@@ -1,0 +1,27 @@
+name: Pull request title linting
+
+on:
+  workflow_call:
+    inputs:
+      pr_title:
+        type: string
+        required: true
+        description: Pull request title to lint.
+
+jobs:
+  lint-pull-request-title:
+    name: Pull request title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+      - name: Setup a Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install commitlint configuration from npm
+        run: npm install --global @commitlint/config-conventional
+      - name: Lint pull request title with commitlint
+        run: |
+          echo "::notice title=Pull request title::${{ inputs.pr_title }}"
+          echo "${{ inputs.pr_title }}" | npx commitlint
