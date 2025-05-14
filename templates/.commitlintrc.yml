@@ -2,8 +2,6 @@ extends: "@commitlint/config-conventional"
 
 scopes: &scopes
   - git
-  - lefthook
-  - templates
 
 rules:
   scope-empty: [2, never]
