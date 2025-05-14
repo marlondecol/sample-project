@@ -1,11 +1,13 @@
 pre-commit:
   piped: true
   commands:
-    1-lint-files-with-editorconfig:
+    lint-files-with-editorconfig:
+      priority: 1
       run: npx --yes editorconfig-checker {staged_files}
       tags: lint editorconfig
 
-    2-lint-markdown-files:
+    lint-markdown-files:
+      priority: 2
       glob: "*.md"
       run: npx --yes markdownlint-cli {staged_files}
       tags: lint markdownlint
