@@ -12,4 +12,4 @@ trim_trailing_whitespace = true
 trim_trailing_whitespace = false
 
 [UNLICENSE.txt]
-indent_size = unset
+indent_size = 0

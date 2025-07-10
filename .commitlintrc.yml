@@ -1,6 +1,7 @@
 extends: "@commitlint/config-conventional"
 
 scopes: &scopes
+  - editorconfig
   - git
   - lefthook
   - templates
