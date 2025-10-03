@@ -3,11 +3,7 @@ run-name: Validate pull request to ${{ github.base_ref }} branch
 
 on:
   pull_request:
-    types:
-      - edited
-      - opened
-      - reopened
-      - synchronize
+    types: [edited, opened, reopened, synchronize]
 
 jobs:
   lint-pull-request-title:
@@ -23,12 +19,12 @@ jobs:
       from: ${{ github.event.pull_request.base.sha }}
       to: ${{ github.event.pull_request.head.sha }}
 
-  lint-changed-files:
+  lint-files-against-editorconfig:
     name: Lint
     needs:
       - lint-pull-request-title
       - lint-commit-messages
-    uses: ./.github/workflows/changed-files-linting.yml
+    uses: ./.github/workflows/files-changed-linting.yml
     with:
       ls_command: git diff --diff-filter=ACMUX --name-only ${{ github.event.pull_request.base.sha }}
       ref: ${{ github.event.pull_request.head.sha }}

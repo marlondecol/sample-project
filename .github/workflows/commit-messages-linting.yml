@@ -6,11 +6,11 @@ on:
       from:
         type: string
         required: false
-        description: Lower end of the commit range to lint.
+        description: Reference of the first commit to lint
       to:
         type: string
         required: true
-        description: Upper end of the commit range to lint.
+        description: Reference of the last commit to lint
 
 jobs:
   lint-commit-messages:
@@ -18,17 +18,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           ref: ${{ inputs.to }}
       - name: Setup a Node.js environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
-      - name: Install commitlint configuration from npm
-        run: npm install --global @commitlint/config-conventional
-      - name: Lint commit messages with commitlint
+          node-version: lts/*
+      - name: Lint commit messages
         run: |
+          npm install --global @commitlint/config-conventional
           echo "::notice title=Last commit message::$(git show -s --format=%s)"
           npx commitlint${{ inputs.from && format(' --from {0}', inputs.from) }} --to ${{ inputs.to }}

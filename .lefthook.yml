@@ -1,7 +1,9 @@
+output: [failure, meta, skips, success]
+
 pre-commit:
   piped: true
   jobs:
-    - name: Lint files with EditorConfig
+    - name: Lint the files against EditorConfig
       run: npx --yes editorconfig-checker {staged_files}
       tags:
         - lint
@@ -15,7 +17,7 @@ pre-commit:
 
 commit-msg:
   jobs:
-    - name: Lint commit message
+    - name: Lint the commit message
       run: npx --yes commitlint --edit
       tags:
         - lint
