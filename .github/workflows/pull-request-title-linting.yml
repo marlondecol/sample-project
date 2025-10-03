@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup a Node.js environment
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: lts/*
       - name: Install commitlint configuration from npm
         run: npm install --global @commitlint/config-conventional
       - name: Lint pull request title with commitlint
