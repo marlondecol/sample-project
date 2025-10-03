@@ -2,6 +2,7 @@ extends: "@commitlint/config-conventional"
 
 scopes: &scopes
   - actions
+  - ci
   - editorconfig
   - git
   - lefthook

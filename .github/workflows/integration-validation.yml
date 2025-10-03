@@ -3,8 +3,7 @@ run-name: Validate integration to ${{ github.ref_name }} branch
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   lint-commit-messages:
@@ -13,10 +12,10 @@ jobs:
     with:
       to: ${{ github.sha }}
 
-  lint-changed-files:
+  lint-files-against-editorconfig:
     name: Lint
     needs: lint-commit-messages
-    uses: ./.github/workflows/changed-files-linting.yml
+    uses: ./.github/workflows/files-changed-linting.yml
     with:
       ls_command: git log -1 --diff-filter=ACMUX --first-parent --name-only --pretty="format:"
       ref: ${{ github.sha }}
