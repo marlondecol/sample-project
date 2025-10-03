@@ -1,3 +1,5 @@
+output: [failure, meta, skips, success]
+
 pre-commit:
   piped: true
   jobs:
