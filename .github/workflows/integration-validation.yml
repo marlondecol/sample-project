@@ -12,7 +12,7 @@ jobs:
     with:
       to: ${{ github.sha }}
 
-  lint-files-against-editorconfig:
+  lint-files-changed:
     name: Lint
     needs: lint-commit-messages
     uses: ./.github/workflows/files-changed-linting.yml

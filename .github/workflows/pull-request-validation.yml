@@ -19,7 +19,7 @@ jobs:
       from: ${{ github.event.pull_request.base.sha }}
       to: ${{ github.event.pull_request.head.sha }}
 
-  lint-files-against-editorconfig:
+  lint-files-changed:
     name: Lint
     needs:
       - lint-pull-request-title
