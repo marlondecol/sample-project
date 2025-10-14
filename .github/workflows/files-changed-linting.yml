@@ -46,6 +46,7 @@ jobs:
         uses: actions/setup-go@v6
         with:
           go-version: 'stable'
+          cache: false
       - name: Install the linting tool
         if: steps.files_changed.outputs.files_count > 0
         run: go install github.com/editorconfig-checker/editorconfig-checker/v3/cmd/editorconfig-checker@latest
