@@ -7,13 +7,14 @@ pre-commit:
       run: editorconfig-checker {staged_files}
       tags:
         - lint
-        - editorconfig
+        - files
     - name: Lint Markdown files
       glob: "*.md"
       run: markdownlint-cli {staged_files}
       tags:
         - lint
-        - markdownlint
+        - files
+        - markdown
 
 commit-msg:
   jobs:
@@ -21,4 +22,4 @@ commit-msg:
       run: commitlint --edit
       tags:
         - lint
-        - commitlint
+        - commit
