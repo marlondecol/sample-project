@@ -41,14 +41,15 @@ jobs:
           echo "Markdown: $markdown_files_count"
           echo "::endgroup::"
           eval $files_changed
-      - name: Setup a Node.js environment
+      - name: Setup a Go environment
         if: steps.files_changed.outputs.files_count > 0
-        uses: actions/setup-node@v5
-        with:
-          node-version: lts/*
+        uses: actions/setup-go@v6
+      - name: Install the linting tool
+        if: steps.files_changed.outputs.files_count > 0
+        run: go install github.com/editorconfig-checker/editorconfig-checker/v3/cmd/editorconfig-checker@latest
       - name: Lint the files against EditorConfig
         if: steps.files_changed.outputs.files_count > 0
-        run: npx editorconfig-checker ${{ steps.files_changed.outputs.files }}
+        run: editorconfig-checker ${{ steps.files_changed.outputs.files }}
     outputs:
       markdown_files: ${{ steps.files_changed.outputs.markdown_files }}
       markdown_files_count: ${{ steps.files_changed.outputs.markdown_files_count }}
@@ -65,5 +66,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: lts/*
+      - name: Install the linting tool
+        run: npm install --global markdownlint-cli
       - name: Lint Markdown files
-        run: npx markdownlint-cli ${{ needs.lint-files-against-editorconfig.outputs.markdown_files }}
+        run: markdownlint-cli ${{ needs.lint-files-against-editorconfig.outputs.markdown_files }}
