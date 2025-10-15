@@ -23,5 +23,5 @@ jobs:
         run: npm install --global @commitlint/cli @commitlint/config-conventional
       - name: Lint the pull request title
         run: |
-          echo "::notice title=Pull request title::${{ inputs.pr_title }}"
-          echo "${{ inputs.pr_title }}" | commitlint
+          echo '::notice title=Pull request title::${{ inputs.pr_title }}'
+          echo '${{ inputs.pr_title }}' | commitlint
