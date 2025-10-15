@@ -72,4 +72,4 @@ jobs:
       - name: Install the linting tool
         run: npm install --global markdownlint-cli
       - name: Lint Markdown files
-        run: markdownlint-cli ${{ needs.lint-files-against-editorconfig.outputs.markdown_files }}
+        run: markdownlint ${{ needs.lint-files-against-editorconfig.outputs.markdown_files }}

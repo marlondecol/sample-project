@@ -10,7 +10,7 @@ pre-commit:
         - files
     - name: Lint Markdown files
       glob: "*.md"
-      run: markdownlint-cli {staged_files}
+      run: markdownlint {staged_files}
       tags:
         - lint
         - files
